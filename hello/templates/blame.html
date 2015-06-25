@@ -1,5 +1,6 @@
-<form action="/your-name/" method="post">
+<form action="/blame/" method="post">
     {% csrf_token %}
-    {{ form }}
+    Type in any js file name in the osf
+    <input type="text" name="textfield">
     <input type="submit" value="Submit" />
 </form>
