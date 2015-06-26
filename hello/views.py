@@ -18,21 +18,31 @@ def blame(request):
     import os
     for root, dirs, files in os.walk("../osf.io"):
         for file in files:
-            if file.endswith(".py") or file.endswith(".js"):
-                 dirdict[file] = os.path.join(root.replace('../osf.io/',''), file)
-
+            if file.endswith(".js") or file.endswith(".py") :
+                 dirdict[file] = os.path.join(root, file)[10:]
     repo = git.Repo("../osf.io")
-    retval = '<table width="100%">'
-    indent = ''
+
+    retval = "<h1>" + dirdict[request.POST.get('textfield', None)] + "</h1>"
+    retval += '<table width="100%">'
+
+    authors = []
 
     for commit, lines in repo.blame('HEAD', dirdict[request.POST.get('textfield', None)]):
-        
-        
         for line in lines:
+            if commit.author not in authors:
+                authors.append(commit.author)
+
             line = line.replace(" ", "&nbsp")
             retval += '<tr>'
-            retval += '<td ><font size="12">' +str(line)+ '</font></td><td>' + str(commit.author) + '</td>'
+            retval += '<td >' +str(line)+ '</td><td>' + str(commit.author) + '</td>'
             retval += '</tr>'
+
+    retval += "<h2>Authors</h2>"
+    for author in authors:
+        retval += "<dd>"+ str(author)
+
+    retval += "<hr>"
+
 
     return HttpResponse(retval)
 
