@@ -1,6 +1,11 @@
+<head>
+     {% load staticfiles %}
+     <link rel="stylesheet" href="{{ STATIC_URL }}style.css">
+</head>
+ <h1> Leader Blame <em>= git blame + a leaderboard</em></h1>
 <form action="/blame/" method="post">
     {% csrf_token %}
-    Type in any js file name in the osf
-    <input type="text" name="textfield">
+    <h2>Type in any js file name in the osf</h2>
+    <input type="text" style="font-size:32pt;" name="textfield">
     <input type="submit" value="Submit" />
 </form>

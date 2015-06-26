@@ -12,25 +12,27 @@ def index(request):
 
 
 def blame(request):
+
+    dirdict = {}
+
+    import os
+    for root, dirs, files in os.walk("../osf.io"):
+        for file in files:
+            if file.endswith(".py") or file.endswith(".js"):
+                 dirdict[file] = os.path.join(root.replace('../osf.io/',''), file)
+
     repo = git.Repo("../osf.io")
     retval = '<table width="100%">'
     indent = ''
-    for commit, lines in repo.blame('HEAD', "website/static/js/"+request.POST.get('textfield', None)):
+
+    for commit, lines in repo.blame('HEAD', dirdict[request.POST.get('textfield', None)]):
         
         
         for line in lines:
             line = line.replace(" ", "&nbsp")
             retval += '<tr>'
-            retval += '<td >' + indent + str(line)+ '</td><td>' + str(commit.author) + '</td>'
+            retval += '<td ><font size="12">' +str(line)+ '</font></td><td>' + str(commit.author) + '</td>'
             retval += '</tr>'
-            try:
-                if line[-1] == "{":
-                    indent += "     "
-                else:
-                    indent = ""
-            except:
-                pass
-
 
     return HttpResponse(retval)
 
