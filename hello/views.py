@@ -14,32 +14,45 @@ def index(request):
 def blame(request):
 
     dirdict = {}
+    repoDir = "./osf.io"
 
     import os
-    for root, dirs, files in os.walk("../osf.io"):
+    for root, dirs, files in os.walk(repoDir):
         for file in files:
-            if file.endswith(".js") or file.endswith(".py") :
-                 dirdict[file] = os.path.join(root, file)[10:]
-    repo = git.Repo("../osf.io")
+            if file.endswith(".js") or file.endswith(".py") or file.endswith(".mako") :
+                print os.path.join(root, file).replace(repoDir+"/", '')
+                dirdict[file] = os.path.join(root, file).replace(repoDir+"/", '')
+    repo = git.Repo(repoDir)
 
     retval = "<h1>" + dirdict[request.POST.get('textfield', None)] + "</h1>"
     retval += '<table width="100%">'
 
     authors = []
+    authorDict = {}
 
     for commit, lines in repo.blame('HEAD', dirdict[request.POST.get('textfield', None)]):
-        for line in lines:
-            if commit.author not in authors:
-                authors.append(commit.author)
+        if commit.author.name not in authors:
+            authors.append(commit.author.name)
+            authorDict[commit.author.name] = 1
+        else:
+            authorDict[commit.author.name] += 1
 
+    print(authorDict )
+
+    commitnum = 0
+
+    for commit, lines in repo.blame('HEAD', dirdict[request.POST.get('textfield', None)]):
+        commitnum += 1
+        for line in lines:
             line = line.replace(" ", "&nbsp")
             retval += '<tr>'
-            retval += '<td >' +str(line)+ '</td><td>' + str(commit.author) + '</td>'
+            retval += '<td >' +str(line.encode('ascii', 'ignore'))+ '</td><td>' + commit.author.name.encode('ascii', 'ignore') + '</td>'
             retval += '</tr>'
+
 
     retval += "<h2>Authors</h2>"
     for author in authors:
-        retval += "<dd>"+ str(author)
+        retval += "<dd>"+ author + " : " + str(authorDict[author])
 
     retval += "<hr>"
 
