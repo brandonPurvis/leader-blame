@@ -17,7 +17,7 @@ def index(request):
 
 def blame(request):
     dirdict = {}
-    repoDir = "./osf.io"
+    repoDir = "./osf.io.git"
 
     import os
     for root, dirs, files in os.walk(repoDir):
