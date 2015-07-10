@@ -5,12 +5,18 @@ class LeaderBoard():
     def __init__(self):
         self.authors = []
 
-    def load(self):
+    def loadAuthors(self):
         with open('data.p') as data_file:
             authors = pickle.load(data_file)
 
         for author in authors:
             self.authors.append(Author(author))
+
+    def loadFiles(self):
+        with open('/Users/johntordoff/leader-blame/info.p') as data_file:
+            self.files = pickle.load(data_file)
+
+
 
     def sort(self):
         self.authors.sort(key=lambda x: len(x.commits), reverse=True)

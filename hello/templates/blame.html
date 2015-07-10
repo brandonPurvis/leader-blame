@@ -4,7 +4,6 @@
 </head>
  <h1> Leader Blame <em>= git blame + a leaderboard</em></h1>
 <form action="/blame/" method="post">
-    {% csrf_token %}
     <h2>Type in any js or py file name in the osf</h2>
     <input type="text" style="font-size:32pt;" name="textfield">
     <input type="submit" value="Submit" />
