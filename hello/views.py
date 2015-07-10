@@ -31,9 +31,11 @@ def blame(request):
         if key.endswith(request.POST.get('textfield', None)):
             inx = key
 
-    print( inx)
-    retval += LB.files[inx]
 
+    try:
+        retval += LB.files[inx]
+    except:
+        retval = "You spelled it wrong"
     return HttpResponse(retval)
 
 
