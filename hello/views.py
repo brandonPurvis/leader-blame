@@ -17,7 +17,7 @@ def index(request):
 
 def blame(request):
     dirdict = {}
-    repoDir = "./osf.io.git"
+    repoDir = "../osf.io"
 
     import os
     for root, dirs, files in os.walk(repoDir):
@@ -49,13 +49,11 @@ def blame(request):
             retval += '<td >' +str(line.encode('ascii', 'ignore'))+ '</td><td>'+ "  " + commit.author.name.encode('ascii', 'ignore')+"</td><td>-" + str(time.asctime(time.gmtime(commit.committed_date))) + " "  + '</td>'
             retval += '</tr>'
 
-
     retval += "<h2>Authors</h2>"
     for author in authors:
         retval += "<dd>"+ author + " : " + str(authorDict[author])
 
     retval += "<hr>"
-
 
     return HttpResponse(retval)
 

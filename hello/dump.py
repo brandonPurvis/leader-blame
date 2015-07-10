@@ -29,7 +29,7 @@ def getFiles():
 def getBlame(files):
 
     authors = []
-    repo = git.Repo("../osf.io")
+    repo = git.Repo("/Users/johntordoff/osf.io")
     i = 0
     for file in files:
         try:

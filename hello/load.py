@@ -1,12 +1,13 @@
 import json
+import pickle
 
 class LeaderBoard():
     def __init__(self):
         self.authors = []
 
     def load(self):
-        with open('data.txt') as data_file:
-            authors = json.load(data_file)
+        with open('data.p') as data_file:
+            authors = pickle.load(data_file)
 
         for author in authors:
             self.authors.append(Author(author))
@@ -21,4 +22,7 @@ class Author():
         self.commits = dict['commits']
         self.commitsNum = len(dict['commits'])
 
+    def printCommit(self):
+        for lines in self.commits:
+            print lines
 
