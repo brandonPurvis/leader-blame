@@ -13,7 +13,7 @@ class LeaderBoard():
             self.authors.append(Author(author))
 
     def loadFiles(self):
-        with open('/Users/johntordoff/leader-blame/info.p') as data_file:
+        with open('./info.p') as data_file:
             self.files = pickle.load(data_file)
 
 
