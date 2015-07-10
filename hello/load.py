@@ -6,7 +6,7 @@ class LeaderBoard():
         self.authors = []
 
     def loadAuthors(self):
-        with open('data.p') as data_file:
+        with open('./data.p') as data_file:
             authors = pickle.load(data_file)
 
         for author in authors:
@@ -15,8 +15,6 @@ class LeaderBoard():
     def loadFiles(self):
         with open('./info.p') as data_file:
             self.files = pickle.load(data_file)
-
-
 
     def sort(self):
         self.authors.sort(key=lambda x: len(x.commits), reverse=True)

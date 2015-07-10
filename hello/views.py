@@ -1,24 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from load import LeaderBoard
+from load import LeaderBoard, Author
 
 import git
 import time
 import os
 # Create your views here.
 def index(request):
-##    LB = LeaderBoard()
-  ##  LB.loadAuthors()
-  ##  LB.sort()
+    LB = LeaderBoard()
+    LB.loadAuthors()
+    LB.sort()
 
-    return render(request, 'blame.html')
+    return render(request, 'blame.html',  {"authors" : LB.authors})
 
 
 def blame(request):
 
     LB = LeaderBoard()
     LB.loadFiles()
+    LB.loadAuthors()
 
     retval = "<h1>" + request.POST.get('textfield', None) + "</h1>"
     retval += '<table width="100%">'
