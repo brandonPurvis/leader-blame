@@ -8,12 +8,5 @@
     <input type="text" style="font-size:32pt;" name="textfield">
     <input type="submit" value="Submit" />
 </form>
-    <em> Following list is out of date or flatout wrong : /</em>
     <br>
 
-    <ul>
-          <a>Author(#commits)<br></a>
-    {% for author in authors %}
-    <a>{{   author.name }} ({{ author.commitsNum }})</a><br>
-    {% endfor %}
-    </ul>

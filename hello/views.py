@@ -8,11 +8,7 @@ import time
 import os
 # Create your views here.
 def index(request):
-    LB = LeaderBoard()
-    LB.loadAuthors()
-    LB.sort()
-
-    return render(request, 'blame.html',  {"authors" : LB.authors})
+    return render(request, 'blame.html')
 
 
 def blame(request):
