@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^$', hello.views.index, name='index'),
     url(r'^db', hello.views.db, name='db'),
     url(r'^blame', hello.views.blame, name='blame'),
+    url(r'^leaderboard', hello.views.leaderboard, name='leaderboard'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 

@@ -10,6 +10,26 @@ import os
 def index(request):
     return render(request, 'blame.html')
 
+def leaderboard(request):
+    retval = '<table>'
+    LB = LeaderBoard()
+    LB.loadAuthors()
+    LB.sort()
+    retval += "<thead><b>"
+    retval += "<td> Author Name</td>"
+    retval += "<td> Number of Commits</td>"
+    retval += "</b></thead>"
+
+    for author in LB.authors:
+        retval += "<tr>"
+        retval += "<td>" + author.name + "</td>"
+        retval += "<td>" + str(author.commitsNum) + "</td>"
+        retval += "</tr>"
+
+    retval += "</table>"
+
+    return HttpResponse(retval)
+
 
 def blame(request):
 
