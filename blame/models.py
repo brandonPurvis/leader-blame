@@ -4,13 +4,14 @@ import git
 import time
 import os
 
+
 # Create your models here.
 class Greeting(models.Model):
     when = models.DateTimeField('date created', auto_now_add=True)
 
 class File(models.Model):
-
     def __init__(self,file):
+        super(File, self).__init__()
         dirdict = {}
         repoDir = "./osf.io"
 
@@ -34,6 +35,4 @@ class Author():
         for commit in commits:
             if commit.author.name in self.names:
                 self.commits.append(commit)
-
-
         return self.commits

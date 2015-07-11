@@ -1,18 +1,19 @@
 import json
 import pickle
 
-class LeaderBoard():
+class LeaderBoard(object):
     def __init__(self):
         self.authors = []
+        self._load_authors()
+        self._load_files()
 
-    def loadAuthors(self):
+    def _load_authors(self):
         with open('./data.p') as data_file:
             authors = pickle.load(data_file)
-
         for author in authors:
             self.authors.append(Author(author))
 
-    def loadFiles(self):
+    def _load_files(self):
         with open('./info.p') as data_file:
             self.files = pickle.load(data_file)
 
@@ -20,13 +21,13 @@ class LeaderBoard():
         self.authors.sort(key=lambda x: len(x.commits), reverse=True)
         return self.authors
 
-class Author():
-    def __init__(self,dict):
+
+class Author(object):
+    def __init__(self, dict):
         self.name = dict['name']
         self.commits = dict['commits']
         self.commitsNum = len(dict['commits'])
 
-    def printCommit(self):
+    def print_commits(self):
         for lines in self.commits:
             print lines
-
