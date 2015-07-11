@@ -1,7 +1,7 @@
 from blame import forms
 from django.shortcuts import render
 from django.http import HttpResponse
-from blame.utils.load import LeaderBoard, Author
+from blame.utils.load import LeaderBoard
 
 
 def index(request):
@@ -30,11 +30,3 @@ def blame(request):
         return HttpResponse(response)
     else:
         return HttpResponse("You spelled it wrong")
-
-
-def db(request):
-    greeting = Greeting()
-    greeting.save()
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})

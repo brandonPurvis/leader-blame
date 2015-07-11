@@ -7,7 +7,6 @@ from blame import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.index, name='index'),
-                       url(r'^db', views.db, name='db'),
                        url(r'^blame', views.blame, name='blame'),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^main', views.main_page, name='main'),
