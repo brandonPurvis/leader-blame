@@ -1,5 +1,5 @@
 """
-Django settings for gettingstarted project.
+Django settings for leader project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
