@@ -17,16 +17,12 @@ def main_page(request):
 def blame(request):
     lb = LeaderBoard()
     requested_filename = request.POST.get('textfield', 'invalid_request')
-
+    context = {}
     file_index = None
     for filename, value in lb.files.iteritems():
-        print('file: {}'.format(filename))
         if filename.endswith(requested_filename):
             file_index = filename
 
-    if file_index:
-        response = "<h1>{}</h1><table width=\"100%\">".format(requested_filename)
-        response += lb.files[file_index]
-        return HttpResponse(response)
-    else:
-        return HttpResponse("You spelled it wrong")
+    context.update({'file_name': requested_filename})
+    context.update({'file_contents': lb.files[file_index]})
+    return render(request, 'results.html', context=context)
