@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render_to_response
 from blame.utils.load import LeaderBoard
 from blame.forms import QueryForm
 
@@ -7,7 +7,7 @@ def index(request):
     context = {}
     form = QueryForm()
     context.update({'form': form})
-    return render(request, 'blame.html', context)
+    return render_to_response('blame.html', context)
 
 
 def blame(request):
@@ -27,7 +27,7 @@ def blame(request):
     file_contents = lb.files[file_index] if file_index else 'File does not exist.'
     context.update({'file_name': requested_filename})
     context.update({'file_contents': file_contents})
-    return render(request, 'results.html', context=context)
+    return render_to_response('results.html', context=context)
 
 
 def leaderboard(request):
@@ -35,4 +35,4 @@ def leaderboard(request):
     lb.sort()
     context = {}
     context.update({'authors': lb.authors})
-    return render(request, 'leaderboard.html', context=context)
+    return render_to_response('leaderboard.html', context=context)
