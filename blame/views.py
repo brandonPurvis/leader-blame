@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from blame.utils.load import LeaderBoard
 
@@ -18,3 +19,12 @@ def blame(request):
     context.update({'file_name': requested_filename})
     context.update({'file_contents': lb.files[file_index]})
     return render(request, 'results.html', context=context)
+
+
+def leaderboard(request):
+    lb = LeaderBoard()
+    lb.sort()
+
+    context = {}
+    context.update({'authors': lb.authors})
+    return render(request, 'leaderboard.html', context=context)
