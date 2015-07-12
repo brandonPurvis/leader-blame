@@ -118,3 +118,8 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, "templates"),
+    # here you can add another templates directory if you wish.
+)
