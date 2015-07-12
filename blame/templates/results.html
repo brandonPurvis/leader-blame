@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>
+        {{ file_name }}
+    </h1>
+    <table class="table">
+        {% autoescape off %}
+            {{ file_contents }}
+        {% endautoescape %}
+    </table>
+{% endblock %}
