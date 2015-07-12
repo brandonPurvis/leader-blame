@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <td> Author Name </td>
+            <td> Number of Commits</td>
+        </thead>
+        <tbody>
+            {% for author in authors %}
+                <tr>
+                    <td>{{ author.name }}</td>
+                    <td>{{ author.commitsNum }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
