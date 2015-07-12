@@ -1,40 +1,38 @@
-from blame import forms
 from django.shortcuts import render
-from django.http import HttpResponse
-from blame.utils.load import LeaderBoard, Author
+from blame.utils.load import LeaderBoard
+from blame.forms import QueryForm
 
 
 def index(request):
-    return render(request, 'blame.html')
-
-
-def main_page(request):
-    form = forms.SearchForm()
-    context = {'form': form}
-    return render(request, 'results.html', context=context)
+    context = {}
+    form = QueryForm()
+    context.update({'form': form})
+    return render(request, 'blame.html', context)
 
 
 def blame(request):
+    context = {}
     lb = LeaderBoard()
-    requested_filename = request.POST.get('textfield', 'invalid_request')
+    form = QueryForm(request.POST)
 
     file_index = None
+
+    form.is_valid()
+    requested_filename = form.cleaned_data['query']
+
     for filename, value in lb.files.iteritems():
-        print('file: {}'.format(filename))
         if filename.endswith(requested_filename):
             file_index = filename
 
-    if file_index:
-        response = "<h1>{}</h1><table width=\"100%\">".format(requested_filename)
-        response += lb.files[file_index]
-        return HttpResponse(response)
-    else:
-        return HttpResponse("You spelled it wrong")
+    file_contents = lb.files[file_index] if file_index else 'File does not exist.'
+    context.update({'file_name': requested_filename})
+    context.update({'file_contents': file_contents})
+    return render(request, 'results.html', context=context)
 
 
-def db(request):
-    greeting = Greeting()
-    greeting.save()
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})
+def leaderboard(request):
+    lb = LeaderBoard()
+    lb.sort()
+    context = {}
+    context.update({'authors': lb.authors})
+    return render(request, 'leaderboard.html', context=context)

@@ -1,5 +1,5 @@
-import json
 import pickle
+
 
 class LeaderBoard(object):
     def __init__(self):
