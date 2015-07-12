@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    {% block header %}
-        <h1>Leader Blame</h1>
-    {% endblock %}
+    <head lang="en">
+        {% block header %}
+            <meta charset="UTF-8">
+            <title>Leader Blame</title>
+        {% endblock %}
+    </head>
 
-    {% block content %}
-    {% endblock %}
+    <body>
+        {% block top %}
+            <h1> Leader Blame <em>= git blame + a leaderboard</em></h1>
+        {% endblock %}
 
-    {% block footer %}
-    {% endblock %}
-</body>
+        {% block content %}
+        {% endblock %}
+
+        {% block bottom %}
+        {% endblock %}
+    </body>
 </html>
