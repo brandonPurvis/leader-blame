@@ -1,17 +1,9 @@
-from blame import forms
 from django.shortcuts import render
-from django.http import HttpResponse
 from blame.utils.load import LeaderBoard
 
 
 def index(request):
     return render(request, 'blame.html')
-
-
-def main_page(request):
-    form = forms.SearchForm()
-    context = {'form': form}
-    return render(request, 'results.html', context=context)
 
 
 def blame(request):
