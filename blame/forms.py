@@ -1,5 +1,9 @@
 from django import forms
 
+PLACE_HOLDER = 'Type in any .js, .py or .mako file name in the osf'
 
-class SearchForm(forms.Form):
-    file_query = forms.CharField()
+class QueryForm(forms.Form):
+    query = forms.CharField(label='',
+                            widget=forms.TextInput(attrs={'class': 'form-control',
+                                                          'placeholder': PLACE_HOLDER}),
+                            )

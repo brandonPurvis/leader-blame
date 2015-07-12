@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
+{% block top %}
+    {{ block.super}}
+{% endblock %}
+
 {% block content %}
-    <h2>Type in any .js, .py or .mako file name in the osf</h2>
     <form action="/blame" method="post">
-        <input type="text" style="font-size:32pt;" name="textfield">
-        <input type="submit" value="Submit" />
+        {% csrf_token %}
+        {{ form }}
     </form>
     <br>
-    <a href="/leaderboard">Leaderboard</a>
 {% endblock %}

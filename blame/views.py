@@ -1,22 +1,32 @@
 from django.shortcuts import render
 from blame.utils.load import LeaderBoard
+from blame.forms import QueryForm
 
 
 def index(request):
-    return render(request, 'blame.html')
+    context = {}
+    form = QueryForm()
+    context.update({'form': form})
+    return render(request, 'blame.html', context)
 
 
 def blame(request):
-    lb = LeaderBoard()
-    requested_filename = request.POST.get('textfield', 'invalid_request')
     context = {}
+    lb = LeaderBoard()
+    form = QueryForm(request.POST)
+
     file_index = None
+
+    form.is_valid()
+    requested_filename = form.cleaned_data['query']
+
     for filename, value in lb.files.iteritems():
         if filename.endswith(requested_filename):
             file_index = filename
 
+    file_contents = lb.files[file_index] if file_index else 'File does not exist.'
     context.update({'file_name': requested_filename})
-    context.update({'file_contents': lb.files[file_index]})
+    context.update({'file_contents': file_contents})
     return render(request, 'results.html', context=context)
 
 
