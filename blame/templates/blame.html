@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block top %}
+    {{ block.super}}
+{% endblock %}
+
+{% block content %}
+    <form action="/blame" method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
+    <br>
+{% endblock %}
