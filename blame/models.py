@@ -2,7 +2,6 @@ import pickle
 import git
 import os
 import time
-import requests
 
 # Create your models here.
 class LeaderBoard(object):
@@ -28,7 +27,7 @@ class LeaderBoard(object):
 class Repo(object):
     def __init__(self):
         self.authors = []
-        self.repo = git.Repo("./osf.io")
+        self.repo = git.Repo("./blame/osf.io")
 
     def getfilePath(self,requested_filename):
         paths = []
