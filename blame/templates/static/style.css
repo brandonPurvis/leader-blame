@@ -3,16 +3,4 @@ h2              { font-size: 1.2em; }
 li              { margin: 1.2em 1.2em; color: #ffffff;}
 dd              { font-size: 1.2em; }
 
-.page           { margin: 1em auto; padding: 0.8em; background: blue; }
-.movies         { list-style: none; margin: 0; padding: 0; }
-.movies li      { margin: 8em 1.2em; color: #ffffff;}
-.movies li h2   { margin-left: 10em; }
-.add-entry      { font-size: 0.9em; border-bottom: 1px solid #ffffff; color: #ffffff;}
-.add-entry dl   { font-weight: bold; color: #ffffff;}
-.metanav        { font-family: vcr_osd_monoregular; text-align: left; font-size: 1em; padding: 1em;
-                  margin-bottom: 1em; background: #fafafa; color: blue;}
-.metanav a      { font-family: vcr_osd_monoregular; text-align: left; font-size: 1em; padding: 1em;
-                  margin-bottom: 1em; background: #fafafa; color: blue;}
-.flash          { background: #CEE5F5; padding: 0.5em;
-                  border: 1px solid #AACBE2; }
-.error          { background: #F0D6D6; padding: 0.5em; }
+code            { font-size: 22.2em; }
