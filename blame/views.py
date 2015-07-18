@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from blame.models import LeaderBoard
+from blame.models import LeaderBoard, Repo
 from blame.forms import QueryForm
 
 
@@ -18,9 +18,14 @@ def index(request):
     return render(request, 'blame.html', context)
 
 
+def getRepo(request):
+    context = {}
+    return render(request, 'getRepo.html', context=context)
+
+
 def blame(request):
     context = {}
-    lb = LeaderBoard()
+    repo = Repo()
     form = QueryForm(request.POST)
 
     file_index = None
@@ -28,12 +33,9 @@ def blame(request):
     form.is_valid()
     requested_filename = form.cleaned_data['query']
 
-    for filename, value in lb.files.iteritems():
-        if filename.endswith(requested_filename):
-            file_index = filename
-
-    file_contents = lb.files[file_index] if file_index else 'File does not exist.'
-    context.update({'file_name': requested_filename})
+    filePath = repo.getfilePath(requested_filename)
+    file_contents = repo.blame(filePath)
+    context.update({'file_name': filePath})
     context.update({'file_contents': file_contents})
     return render(request, 'results.html', context=context)
 

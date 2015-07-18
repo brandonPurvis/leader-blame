@@ -3,4 +3,5 @@ h2              { font-size: 1.2em; }
 li              { margin: 1.2em 1.2em; color: #ffffff;}
 dd              { font-size: 1.2em; }
 
+.page           { margin: 1em auto; padding: 0.8em; background: blue; }
 code            { font-size: 22.2em; }
