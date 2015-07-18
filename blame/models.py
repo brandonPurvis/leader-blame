@@ -1,38 +1,33 @@
-from django.db import models
-import os
-import git
-import time
-import os
-
+import pickle
 
 # Create your models here.
-class Greeting(models.Model):
-    when = models.DateTimeField('date created', auto_now_add=True)
+class LeaderBoard(object):
+    def __init__(self):
+        self.authors = []
+        self._load_authors()
+        self._load_files()
 
-class File(models.Model):
-    def __init__(self,file):
-        super(File, self).__init__()
-        dirdict = {}
-        repoDir = "./osf.io"
+    def _load_authors(self):
+        with open('./blame/data/data.p') as data_file:
+            authors = pickle.load(data_file)
+        for author in authors:
+            self.authors.append(Author(author))
 
-        authors = []
+    def _load_files(self):
+        with open('./blame/data/info.p') as data_file:
+            self.files = pickle.load(data_file)
 
-        for commit, lines in repo.blame('HEAD', file):
-            if commit.author.name not in authors:
-                authors.append(commit.author.name)
+    def sort(self):
+        self.authors.sort(key=lambda x: len(x.commits), reverse=True)
+        return self.authors
 
-class Author():
-    def __init__(self,names=None):
-        self.commits = []
-        self.names = names
 
-    def get_commits(self):
-        repoDir = "./osf.io"
-        repo = git.Repo(repoDir)
+class Author(object):
+    def __init__(self, dict):
+        self.name = dict['name']
+        self.commits = dict['commits']
+        self.commitsNum = len(dict['commits'])
 
-        commits = list(repo.iter_commits('develop'))
-
-        for commit in commits:
-            if commit.author.name in self.names:
-                self.commits.append(commit)
-        return self.commits
+    def print_commits(self):
+        for lines in self.commits:
+            print lines

@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from blame.utils.load import LeaderBoard
+from blame.models import LeaderBoard
 from blame.forms import QueryForm
 
 

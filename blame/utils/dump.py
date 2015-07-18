@@ -95,3 +95,5 @@ def dumpBlame():
 
     with open('info.p', 'wb') as outfile:
         pickle.dump(info, outfile)
+
+dumpBlame()
